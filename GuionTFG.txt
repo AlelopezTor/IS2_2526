@@ -1,4 +1,5 @@
 Capítulo 1. Introducción
-Capítulo 2. Requisitos
-Capítulo 3. Arquitectura
-Capítulo 4. Conclusiones
+>> Capítulo 2. Analisis de requisitos
+>> Capítulo 3. Arquitectura
+>> Capítulo 4. Pruebas
+>> Capítulo 5. Conclusiones
