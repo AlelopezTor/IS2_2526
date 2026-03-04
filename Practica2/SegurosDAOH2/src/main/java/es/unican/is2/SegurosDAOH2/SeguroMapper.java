@@ -1,8 +1,12 @@
-
+package es.unican.is2.SegurosDAOH2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
+import es.unican.is2.SegurosCommon.Cobertura;
+import es.unican.is2.SegurosCommon.DataAccessException;
+import es.unican.is2.SegurosCommon.Seguro;
 
 /**
  * Clase de utilidad que mapea filas de la base de datos a 

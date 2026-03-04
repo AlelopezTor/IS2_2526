@@ -1,4 +1,4 @@
-
+package es.unican.is2.SegurosCommon;
 
 import java.util.List;
 

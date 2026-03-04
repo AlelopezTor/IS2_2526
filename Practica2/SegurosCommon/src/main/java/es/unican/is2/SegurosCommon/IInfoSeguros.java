@@ -1,4 +1,4 @@
-
+package es.unican.is2.SegurosCommon;
 
 /**
  * Interfaz con metodos de consulta de informacion

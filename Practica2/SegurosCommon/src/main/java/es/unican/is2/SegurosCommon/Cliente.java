@@ -1,3 +1,4 @@
+package es.unican.is2.SegurosCommon;
 import java.util.LinkedList;
 import java.util.List;
 

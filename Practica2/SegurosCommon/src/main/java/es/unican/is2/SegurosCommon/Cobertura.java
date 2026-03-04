@@ -1,4 +1,4 @@
-
+package es.unican.is2.SegurosCommon;
 
 /**
  * Tipo de cobertura proporcionada por un seguro

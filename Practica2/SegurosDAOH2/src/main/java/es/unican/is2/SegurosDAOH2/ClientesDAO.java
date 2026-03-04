@@ -1,4 +1,4 @@
-
+package es.unican.is2.SegurosDAOH2;
 
 
 import java.sql.Connection;
@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+
+import es.unican.is2.SegurosCommon.Cliente;
+import es.unican.is2.SegurosCommon.DataAccessException;
+import es.unican.is2.SegurosCommon.IClientesDAO;
+import es.unican.is2.SegurosCommon.Seguro;
 
 
 public class ClientesDAO implements IClientesDAO {
