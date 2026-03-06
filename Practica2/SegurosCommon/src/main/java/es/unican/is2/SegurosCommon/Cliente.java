@@ -1,7 +1,6 @@
 package es.unican.is2.SegurosCommon;
 import java.util.LinkedList;
 import java.util.List;
-
 /**
  * Clase que representa un cliente de la empresa de seguros
  * Un cliente se identifica por su dni
@@ -78,7 +77,13 @@ public class Cliente {
      * todos los seguros a su nombre
      */
     public double totalSeguros() {
-        return 0;
+    	double suma = 0;
+    	for (Seguro seguro: seguros) {
+    		suma += seguro.precio();
+    	}
+    	if (getMinusvalia() == true) {
+    		suma -= suma*0.25;
+    	}
+        return suma;
     }
-
 }

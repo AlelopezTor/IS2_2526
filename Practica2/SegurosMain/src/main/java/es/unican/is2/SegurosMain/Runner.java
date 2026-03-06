@@ -1,4 +1,10 @@
-
+package es.unican.is2.SegurosMain;
+import es.unican.is2.SegurosCommon.IClientesDAO;
+import es.unican.is2.SegurosDAOH2.ClientesDAO;
+import es.unican.is2.SegurosGUI.VistaAgente;
+import es.unican.is2.SegurosCommon.ISegurosDAO;
+import es.unican.is2.SegurosDAOH2.SegurosDAO;
+import es.unican.is2.SegurosBusiness.GestionSeguros;
 
 public class Runner {
 
@@ -11,3 +17,4 @@ public class Runner {
 	}
 
 }
+
