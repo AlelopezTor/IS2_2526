@@ -1,0 +1,6 @@
+projectKey=es.unican.is2:Seguros_mejorado
+serverUrl=http://localhost:9000
+serverVersion=26.3.0.120487
+dashboardUrl=http://localhost:9000/dashboard?id=es.unican.is2%3ASeguros_mejorado
+ceTaskId=a65e3df6-87b5-43c0-a223-5b42692bb495
+ceTaskUrl=http://localhost:9000/api/ce/task?id=a65e3df6-87b5-43c0-a223-5b42692bb495
