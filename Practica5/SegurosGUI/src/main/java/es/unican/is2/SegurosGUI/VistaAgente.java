@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,6 @@ public class VistaAgente extends JFrame {
 	private JList<String> listSeguros; 
 	private DefaultListModel<String> listModel;
 	private JButton btnBuscar;
-	
 	private IGestionClientes clientes;
 	private IGestionSeguros seguros;
 	private IInfoSeguros info;
@@ -50,7 +50,7 @@ public class VistaAgente extends JFrame {
 	}
 	
 	public void init() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 341);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,7 +106,7 @@ public class VistaAgente extends JFrame {
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				rellenaDatosCliente(txtNombreCliente.getText());
+				rellenaDatosCliente(txtDniCliente.getText()); //Cambiar por txtDNICliente
 			}
 		});
 		btnBuscar.setBounds(21, 122, 89, 23);

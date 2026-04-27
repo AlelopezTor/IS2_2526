@@ -1,6 +1,7 @@
 package es.unican.is2.SegurosCommon;
 
 import java.time.LocalDate;
+import java.util.regex.*;
 
 /**
  * Clase que representa un seguro de coche.
@@ -27,8 +28,34 @@ public class Seguro {
 	static final public double SUBIDA_POTENCIA_MEDIA = 0.05;
 	static final public double DESCUENTO_DE_PRIMER_ANHO = 0.2;
 	static final public int ANHO_PARA_DESCUENTO = 1;
-
-	
+    private static final Pattern ESTRUCTURA_MATRICULA = Pattern.compile("^[0-9][0-9][0-9][0-9][A-Z][A-Z][A-Z]$");
+    public Seguro(String matricula, int potencia, Cobertura cobertura, LocalDate fechaInicio) {
+    	if (matricula == null) {
+    		throw new NullPointerException("Matricula no puede ser null");
+    	}
+    	if (!ESTRUCTURA_MATRICULA.matcher(matricula).matches()) {
+    		throw new IllegalArgumentException("Matricula mal puesta");
+    	}
+    	if (potencia < 0) {
+    		throw new IllegalArgumentException("La potencia no puede ser menor que 0");
+    	}
+    	if (cobertura == null) {
+    		throw new NullPointerException("Cobertura no puede ser null");
+    	}
+    	if (fechaInicio == null) {
+    		throw new NullPointerException("LA fecha no puede ser null");
+    	}
+    	if (fechaInicio.isBefore(LocalDate.now())) {
+    		throw new IllegalArgumentException("La fecha no puede ser menor que hoy");
+    	}
+    	
+        this.matricula = matricula;
+        this.potencia = potencia;
+        this.cobertura = cobertura;
+        this.fechaInicio = fechaInicio;
+        this.conductorAdicional = null;
+    }
+    public Seguro() {}
 	/**
 	 * Retorna el identificador del seguro
 	 */
@@ -141,8 +168,6 @@ public class Seguro {
 		case TODO_RIESGO:
 			precio_base = PRECIO_BASE_TODO_RIESGO;
 			break;
-		default:
-			throw new IllegalArgumentException("No se puede asignar la cobertura");
 		}
 		double suma = precio_base;
 
@@ -157,5 +182,20 @@ public class Seguro {
 		}
 		return suma;
 	}
-	
+    @Override
+    public boolean equals(Object o) {
+	        if (this == o) {
+	        	return true;
+	        }
+        if (!(o instanceof Seguro)) {
+        	return false;
+        }
+        Seguro other = (Seguro) o;
+        return this.matricula.equals(other.matricula);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.matricula.hashCode();
+    }
 }

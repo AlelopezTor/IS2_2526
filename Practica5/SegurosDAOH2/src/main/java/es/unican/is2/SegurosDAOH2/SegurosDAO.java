@@ -30,7 +30,7 @@ public class SegurosDAO implements ISegurosDAO {
 	@Override
 	public Seguro eliminaSeguro(long id) throws DataAccessException {
 		Seguro seguro = seguro(id);
-		Connection con = H2ServerConnectionManager.getConnection();
+		H2ServerConnectionManager.getConnection();
 		String statementText = "delete from Seguros where id = " + id;
 		H2ServerConnectionManager.executeSqlStatement(statementText);
 		return seguro;
@@ -39,9 +39,9 @@ public class SegurosDAO implements ISegurosDAO {
 	@Override
 	public Seguro actualizaSeguro(Seguro nuevo) throws DataAccessException {
 		Seguro seguro = null;
-		Seguro old = seguro(nuevo.getId());
+		seguro(nuevo.getId());
 		String statementText;
-		Connection con = H2ServerConnectionManager.getConnection();
+		H2ServerConnectionManager.getConnection();
 
 		statementText = String.format(
 				"update Seguros set matricula = '%s', fechaInicio = '%s', cobertura = '%s', potencia = '%d', conductorAdicional = '%s' where id = '%d'", 
@@ -55,14 +55,14 @@ public class SegurosDAO implements ISegurosDAO {
 	public Seguro seguro(long id) throws DataAccessException {
 		Seguro result = null; 
 		Connection con = H2ServerConnectionManager.getConnection();
-		try {
-			Statement statement = con.createStatement();
-			String statementText = "select * from Seguros where id = '"+ id+"'";
-			ResultSet results = statement.executeQuery(statementText);
+		String statementText = "select * from Seguros where id = '"+ id+"'";
+		try (Statement statement = con.createStatement();
+				ResultSet results = statement.executeQuery(statementText);){
+			
+			
 			if (results.next()) { 
 				result = SeguroMapper.toSeguro(results);
 			}
-			statement.close(); 
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -75,15 +75,15 @@ public class SegurosDAO implements ISegurosDAO {
 	public List<Seguro> seguros() throws DataAccessException {
 		List<Seguro> seguros = new LinkedList<Seguro>();
 		Connection con = H2ServerConnectionManager.getConnection(); 
-		try {
-			Statement statement = con.createStatement(); 
-			String statementText = "select * from Seguros"; 
-			ResultSet results = statement.executeQuery(statementText); 
+		String statementText = "select * from Seguros"; 
+
+		try (Statement statement = con.createStatement();
+				ResultSet results = statement.executeQuery(statementText);){
+			
 			// Procesamos cada fila como vehiculo independiente
 			while (results.next()) {
 				seguros.add(SeguroMapper.toSeguro(results)); 
 			}
-			statement.close(); 
 		} catch (SQLException e) {
 			// System.out.println(e);
 			throw new DataAccessException();
@@ -96,14 +96,13 @@ public class SegurosDAO implements ISegurosDAO {
 	public Seguro seguroPorMatricula(String matricula) throws DataAccessException {
 		Seguro result = null; 
 		Connection con = H2ServerConnectionManager.getConnection();
-		try {
-			Statement statement = con.createStatement();
-			String statementText = "select * from Seguros where matricula = '"+ matricula+"'";
-			ResultSet results = statement.executeQuery(statementText);
+		String statementText = "select * from Seguros where matricula = '"+ matricula+"'";
+		try (Statement statement = con.createStatement();
+				ResultSet results = statement.executeQuery(statementText);){
+			
 			if (results.next()) { 
 				result = SeguroMapper.toSeguro(results);
 			}
-			statement.close(); 
 		}
 		catch (SQLException e) {
 			throw new DataAccessException();

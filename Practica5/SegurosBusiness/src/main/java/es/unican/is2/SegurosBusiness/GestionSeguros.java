@@ -113,6 +113,7 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 	}
 	@Override
 	public Seguro seguro (String matricula)  throws DataAccessException{
+		
 		Seguro s = segurosDao.seguroPorMatricula(matricula);
 		return s;
 	}

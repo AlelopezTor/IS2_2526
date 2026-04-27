@@ -21,7 +21,8 @@ public class H2ServerConnectionManager {
 	// Atributos de acceso a la Base de Datos
 	protected static String dbName = "test";
 	protected static String user = "sa";
-	protected static String pass = "";
+	protected static String pass = "micontraseñaquenadiemelavea";
+	
 
 	/**
 	 * Obtiene una conexion con la base de datos
@@ -29,11 +30,16 @@ public class H2ServerConnectionManager {
 	 * @throws DataAccessException si no se puede establecer al conexion
 	 */
 	public static Connection getConnection() throws DataAccessException {
+		if (System.getenv("DB_PASSWORD") != null) {
+		    pass = System.getenv("DB_PASSWORD");
+		} else {
+		    pass = "";
+		}
 
 		if (connection == null) { 
 			try {
-				Class.forName("org.h2.Driver"); //comprueba que el driver esta instalado
-				connection = DriverManager.getConnection("jdbc:h2:mem:test", "sa","");		
+				Class.forName("org.h2.Driver");
+				connection = DriverManager.getConnection("jdbc:h2:mem:test", "sa",pass);		
 				cargaDatos();
 			} catch (SQLException | ClassNotFoundException e) {
 				throw new DataAccessException();
@@ -47,11 +53,7 @@ public class H2ServerConnectionManager {
 	 * @throws DataAccessException Si hay un fallo en la conexion
 	 */
 	public static void cargaDatos() throws DataAccessException {
-		try {
-			Connection con = getConnection();
-			
-			// Creacion programatica de la BBDD
-			Statement stm = con.createStatement(); 
+		try (Statement stm = connection.createStatement()) {
 			
 			// Creacion de la tabla Clientes
 			String sql= "CREATE TABLE Clientes (dni CHAR(9) NOT NULL, nombre VARCHAR(100) NOT NULL, "
@@ -99,7 +101,6 @@ public class H2ServerConnectionManager {
 			
 			
 			// Cierra el statement
-			stm.close();
 			
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -120,11 +121,8 @@ public class H2ServerConnectionManager {
 	 * @throws DataAccessException si hay un error en la conexion
 	 */
 	public static void executeSqlStatement(String stringStatement) throws DataAccessException {
-		Connection con = getConnection(); 
-		try {
-			Statement stm = con.createStatement(); 
+	    try (Statement stm = connection.createStatement()) {
 			stm.execute(stringStatement); 
-			stm.close(); 
 		}
 		catch (SQLException e) {
 			throw new DataAccessException(); 
